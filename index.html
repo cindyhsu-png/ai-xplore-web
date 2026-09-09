@@ -329,13 +329,24 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
 .step__m{margin-left:auto;font-size:11.5px;color:var(--gold);white-space:nowrap}
 
 /* ---------- 作品集 ---------- */
-.pf__tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 34px}
-.pf__grid{display:grid;gap:clamp(10px,1.2vw,16px)}
-.pf__grid--v{grid-template-columns:repeat(auto-fill,minmax(158px,1fr))}
-.pf__grid--i{grid-template-columns:repeat(auto-fill,minmax(206px,1fr))}
-.pfc{position:relative;border-radius:14px;overflow:hidden;cursor:pointer;background:#0A1424;
+.pfrow{position:relative;overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.pfrow+.pfrow{margin-top:clamp(16px,2vw,26px)}
+.pfrow__hd{display:flex;align-items:center;gap:12px;margin:0 0 14px;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pfrow__hd b{color:var(--glow);font-weight:600;letter-spacing:.06em}
+.pfrow__hd::after{content:"";flex:1;height:1px;background:var(--hair)}
+.pfrow__track{display:flex;gap:clamp(10px,1.2vw,16px);width:max-content;will-change:transform}
+.pfrow--l .pfrow__track{animation:pfL 96s linear infinite}
+.pfrow--r .pfrow__track{animation:pfR 124s linear infinite}
+.pfrow:hover .pfrow__track{animation-play-state:paused}
+@keyframes pfL{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes pfR{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
+.pfc{position:relative;flex:none;border-radius:14px;overflow:hidden;cursor:pointer;background:#0A1424;
   border:1px solid var(--hair);transition:border-color .3s,transform .3s,box-shadow .3s}
-.pfc--v{aspect-ratio:9/16} .pfc--i{aspect-ratio:1/1}
+.pfc--v{width:clamp(124px,10.5vw,164px);aspect-ratio:9/16}
+.pfc--i{width:clamp(182px,15vw,238px);aspect-ratio:1/1}
 .pfc img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
 .pfc:hover{border-color:rgba(111,211,255,.6);transform:translateY(-3px);
   box-shadow:0 24px 50px -26px rgba(46,123,255,.85)}
@@ -350,8 +361,7 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
   border:1px solid rgba(111,211,255,.5);backdrop-filter:blur(6px);opacity:.8;transition:opacity .3s,transform .3s}
 .pfc:hover .pfc__play{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
 .pfc__play svg{width:14px;height:14px;color:var(--glow);margin-left:2px}
-.pfc[hidden]{display:none}
-.pf__grid[hidden]{display:none}
+
 
 /* ---------- 客戶見證 ---------- */
 .tm{position:relative;overflow:hidden;
@@ -475,18 +485,10 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
 .plan .btn-row{margin-top:28px}
 .plan .btn{width:100%}
 .note{margin:28px auto 0;max-width:66ch;text-align:center;font-size:13px;color:var(--muted)}
-.embed{border-radius:22px;overflow:hidden;border:1px solid var(--hair);
-  background:rgba(8,16,34,.5);min-height:420px;position:relative}
-.embed iframe{display:block;width:100%;border:0;min-height:420px}
-.embed__ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:40px;
-  color:var(--muted);font-size:13.5px;line-height:1.9}
-.embed__ph code{color:var(--glow);background:rgba(46,123,255,.1);border:1px solid rgba(111,211,255,.22);
-  padding:3px 9px;border-radius:6px;font-size:12.5px}
 .final{position:relative;overflow:hidden;border-radius:26px;isolation:isolate;
-  padding:clamp(48px,7vw,88px) clamp(24px,5vw,64px);text-align:center;
-  border:1px solid rgba(111,211,255,.24)}
+  padding:clamp(48px,7vw,88px) clamp(24px,5vw,64px);text-align:center}
 .final__bg{position:absolute;inset:0;z-index:-2}
-.final__bg img{width:100%;height:100%;object-fit:cover;opacity:.2;filter:saturate(.75) blur(2px)}
+.final__bg img{width:100%;height:100%;object-fit:cover;opacity:.12;filter:saturate(.6) blur(5px)}
 .final::before{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(180deg,rgba(4,8,20,.72),rgba(4,8,20,.9))}
 .final h2{font-size:clamp(28px,5vw,54px);letter-spacing:-.03em}
@@ -500,7 +502,7 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
 .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
-  .wall__col,.tm__row,.scroll-cue i,.dash__live::before{animation:none}
+  .wall__col,.tm__row,.pfrow__track,.scroll-cue i,.dash__live::before{animation:none}
   html{scroll-behavior:auto}
 }
 @media(max-width:720px){
@@ -723,13 +725,14 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
       <h2 class="chrome">不用每次從零開始</h2>
       <p class="sub">以下每一張圖、每一支影片都由模組全自動生成，橫跨 50 個產業<span class="dot">·</span>點開任一件放大看</p>
     </div>
-    <div class="pf__tabs rv" id="pfTabs">
-      <button class="chip on" data-pf="v" type="button">AI UGC 素人影片<small>26</small></button>
-      <button class="chip" data-pf="i" type="button">AI 生成廣告圖<small>50</small></button>
+    <div class="rv">
+      <div class="pfrow__hd">AI UGC 素人影片 <b>26 支</b></div>
+      <div class="pfrow pfrow--l"><div class="pfrow__track" id="pfVideos"></div></div>
     </div>
-    <div class="pf__grid pf__grid--v rv" id="pfVideos"></div>
-    <div class="pf__grid pf__grid--i rv" id="pfImages" hidden></div>
-    <p class="note">以上為素材庫中的部分精選。素材由 99agent 模組全自動生成，模擬真實用戶拍攝風格，成本約傳統製作的 1/20。</p>
+    <div class="rv" style="margin-top:clamp(28px,3.4vw,46px)">
+      <div class="pfrow__hd">AI 生成廣告圖 <b>50 張</b></div>
+      <div class="pfrow pfrow--r"><div class="pfrow__track" id="pfImages"></div></div>
+    </div>
   </div>
 </section>
 
@@ -739,7 +742,6 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
     <div class="head rv">
       <p class="eyebrow c">CLIENT VOICES</p>
       <h2 class="chrome">企業主怎麼說<br>讓成績說話</h2>
-      <p class="sub">來自各產業的合作夥伴<span class="dot">·</span>姓名依協議部分遮蔽</p>
     </div>
   </div>
   <div class="tm rv" id="tm"><div class="tm__row" id="tmRow"></div></div>
@@ -751,7 +753,7 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
     <div class="head rv">
       <p class="eyebrow c">ALL MODULES</p>
       <h2 class="chrome">24 個模組的完整地圖</h2>
-      <p class="sub">6 個現貨模組付款後立即開通<span class="dot">·</span>其餘模組半年內陸續交付</p>
+      <p class="sub">每個模組都是一段可獨立運作的產能<span class="dot">·</span>任意接起來，就是一條為你而生的自動生產線</p>
     </div>
     <div class="filters rv" id="filters"></div>
     <div class="mods" id="mods"></div>
@@ -763,7 +765,7 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
   <div class="wrap">
     <div class="gift rv">
       <div class="gift__hd">
-        <span class="gift__badge">✦ 加購同享 · AI 先行者計畫</span>
+        <span class="gift__badge">✦ 加購贈送教材課程</span>
         <h2 class="gold-t">買工具，一起教你「會用」</h2>
         <p class="gift__sub">工具開通了，還是不知道怎麼串成能收費的流程？所以我們把整套實戰課直接送——不用另外報名，開通即開課。</p>
       </div>
@@ -848,20 +850,6 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
           </div>
         </div>
       </article>
-    </div>
-    <p class="note">定價與交付說明以 99agent 平台公告為準。模組月費與點數為使用時另計，方案本身為模組開通權。</p>
-  </div>
-</section>
-
-<!-- ============ LP 嵌入 ============ -->
-<section class="sect" id="lp">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow c">LANDING PAGE</p><h2 class="chrome">完整方案說明</h2></div>
-    <div class="embed rv" id="lpEmbed" data-src="">
-      <div class="embed__ph"><div>
-        <p style="margin:0 0 10px;color:var(--ink-2);font-size:15px">LP 嵌入區</p>
-        <p style="margin:0;max-width:46ch">把收單頁網址填進 <code>#lpEmbed</code> 的 <code>data-src</code>，這一區就會自動換成 iframe。</p>
-      </div></div>
     </div>
   </div>
 </section>
@@ -1089,24 +1077,20 @@ const VOICES = [
     nodes.forEach(n=>io.observe(n));
   })();
 
-  /* ---- 5. 作品集 ---- */
+  /* ---- 5. 作品集：影片一行、廣告圖一行，各自輪播 ---- */
   (function portfolio(){
-    const gv = $('#pfVideos'), gi = $('#pfImages'), tabs = $('#pfTabs');
+    const gv = $('#pfVideos'), gi = $('#pfImages');
     if(!gv||!gi) return;
-    const SHOW = 12;                       // 每個分頁固定挑 12 件當代表作
-    const card = (it,i,kind) => `<article class="pfc pfc--${kind}" data-list="${kind}" data-i="${i}"${i>=SHOW?' hidden':''}>
+    const card = (it,i,kind) => `<article class="pfc pfc--${kind}" data-list="${kind}" data-i="${i}">
       <img src="${esc(it.poster)}" alt="${esc(it.label)}" loading="lazy" decoding="async">
       ${it.type==='video'?'<span class="pfc__play"><svg><use href="#i-play"/></svg></span>':''}
       <span class="pfc__ov"><span class="pfc__tag">${esc(it.tag)}</span><span class="pfc__lb">${esc(it.label)}</span></span>
     </article>`;
-    gv.innerHTML = VITEMS.map((it,i)=>card(it,i,'v')).join('');
-    gi.innerHTML = IITEMS.map((it,i)=>card(it,i,'i')).join('');
-    tabs.addEventListener('click', e=>{
-      const b = e.target.closest('.chip'); if(!b) return;
-      $$('.chip',tabs).forEach(c=>c.classList.toggle('on', c===b));
-      const v = b.dataset.pf==='v';
-      gv.hidden = !v; gi.hidden = v;
-    });
+    /* 內容排兩份，位移 -50% 時剛好無縫接回 */
+    const vHtml = VITEMS.map((it,i)=>card(it,i,'v')).join('');
+    const iHtml = IITEMS.map((it,i)=>card(it,i,'i')).join('');
+    gv.innerHTML = vHtml + vHtml;
+    gi.innerHTML = iHtml + iHtml;
     [gv,gi].forEach(g=>g.addEventListener('click', e=>{
       const c = e.target.closest('.pfc'); if(!c) return;
       lbOpen(c.dataset.list==='v' ? VITEMS : IITEMS, +c.dataset.i);
@@ -1161,15 +1145,7 @@ const VOICES = [
     });
   })();
 
-  /* ---- 8. LP 嵌入 ---- */
-  (function lp(){
-    const box = $('#lpEmbed'); if(!box) return;
-    const src = (box.dataset.src||'').trim(); if(!src) return;
-    box.innerHTML = `<iframe src="${esc(src)}" title="方案說明" loading="lazy"
-      allow="fullscreen; autoplay; clipboard-write" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-  })();
-
-  /* ---- 9. 購物車按鈕落點 ---- */
+  /* ---- 8. 購物車按鈕落點 ---- */
   window.AIXplore = {
     /* 用法：AIXplore.mountCTA('hero-primary', document.querySelector('#myCartBtn')) */
     mountCTA(name,node){
@@ -1180,7 +1156,7 @@ const VOICES = [
     slots(){ return $$('.cta-slot').map(s=>({cta:s.dataset.cta, sku:s.dataset.sku})); }
   };
 
-  /* ---- 10. 導覽列底色 + 進場動畫 ---- */
+  /* ---- 9. 導覽列底色 + 進場動畫 ---- */
   const nav = $('#nav');
   const onScroll = ()=> nav && nav.classList.toggle('on', scrollY>40);
   addEventListener('scroll', onScroll, {passive:true}); onScroll();

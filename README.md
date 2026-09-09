@@ -10,11 +10,11 @@ AI 行銷模組銷售頁。純靜態單檔（`index.html`），走 GitHub Pages�
 | — | 數字見證：87+ / 11.8× / 4,800萬+ / 78%，進入視窗時往上跳動計數 |
 | 2-A · 痛點鉤子 | 三個陷阱：數位垃圾／幻想一鍵變現／只靠單點工具 |
 | 2-B · 產線 × 數據 | 四步產線每段掛量化指標，右側是成效儀表板（KPI／ROAS 趨勢 SVG／活躍活動表） |
-| 2-C · 真實案例 | 26 支 AI UGC 影片 + 50 張 AI 生成廣告圖，可切換、可展開全部、點擊放大 |
+| 2-C · 真實案例 | 26 支 AI UGC 影片與 50 張 AI 生成廣告圖各排成一行輪播，反向捲動、hover 暫停、點擊放大預覽 |
 | 3 · 客戶見證 | 6 則企業主見證橫向跑馬，hover 暫停 |
 | 4 · 模組地圖 | 全部模組卡片 + 分類篩選 |
 | 5 · 免費贈課 | AI 自動化工作流實戰班（原價 NT$5,800 → NT$0），8 堂課大綱 |
-| — | 方案定價、LP 嵌入區、結尾 CTA、footer |
+| — | 方案定價、結尾 CTA、footer |
 
 全站游標為光點暈染特效（觸控裝置自動停用）。
 
@@ -42,16 +42,6 @@ https://storage.googleapis.com/99agent-public/portfolio/{images,videos}/<檔名>
 - `ic`：`i-news` `i-script` `i-image` `i-video` `i-audio` `i-person`
 
 `RESERVED` 會自動算出「24 − 已列出模組數」，顯示成「還有 N 個模組在路上」的卡片。
-
-## 嵌入 LP
-
-把收單頁網址填進 `#lpEmbed` 的 `data-src`：
-
-```html
-<div class="embed" id="lpEmbed" data-src="https://your-lp-url">
-```
-
-有值才會長出 iframe，沒填就顯示佔位說明。
 
 ## 購物車按鈕落點
 
