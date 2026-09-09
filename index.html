@@ -98,11 +98,17 @@ h2,h3{text-wrap:balance}
   transition:opacity .35s ease;will-change:transform}
 .cur{width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;mix-blend-mode:screen;
   background:radial-gradient(circle closest-side,rgba(111,211,255,.17),rgba(46,123,255,.09) 42%,transparent 72%)}
-.cur-dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:var(--glow);
-  box-shadow:0 0 14px var(--glow),0 0 34px rgba(46,123,255,.75);z-index:9999}
+.cur-dot{width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;z-index:9999;
+  background:radial-gradient(circle closest-side,rgba(226,244,255,.95) 0%,rgba(111,211,255,.75) 26%,
+    rgba(46,123,255,.34) 52%,rgba(46,123,255,0) 78%);
+  filter:blur(.4px)}
 body.cur-on .cur,body.cur-on .cur-dot{opacity:1}
 body.cur-hot .cur{background:radial-gradient(circle closest-side,rgba(111,211,255,.3),rgba(46,123,255,.14) 42%,transparent 72%)}
 body.cur-hot .cur-dot{transform-origin:center}
+/* 只留光點與光暈，系統箭頭全部藏起來 */
+@media(hover:hover) and (pointer:fine){
+  html.cur-hide,html.cur-hide body,html.cur-hide *{cursor:none !important}
+}
 @media(hover:none),(pointer:coarse){.cur,.cur-dot{display:none}}
 
 /* ---------- nav ---------- */
@@ -123,14 +129,14 @@ body.cur-hot .cur-dot{transform-origin:center}
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden;
   isolation:isolate;padding:96px 0 92px}
-.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;perspective:1080px;perspective-origin:58% 44%}
+.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;perspective:1400px;perspective-origin:50% 50%}
 
 /* 3D 電視牆：直向捲動的作品縮圖柱，整面往後傾斜 */
 .wall{
   position:absolute;left:50%;top:50%;
-  width:190%;height:210%;
+  width:150%;height:230%;
   display:flex;gap:clamp(10px,1vw,16px);justify-content:center;
-  transform:translate(-50%,-50%) rotateX(9deg) rotateY(-24deg) rotateZ(1.5deg) scale(1.06);
+  transform:translate(-50%,-50%) rotateX(7deg) scale(1.04);
   transform-style:preserve-3d;
 }
 .wall__col{display:flex;flex-direction:column;gap:clamp(10px,1vw,16px);
@@ -188,10 +194,10 @@ body.cur-hot .cur-dot{transform-origin:center}
   font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
 .hero__kicker b{color:var(--glow);font-weight:600}
 h1.hero__t{
-  font-size:clamp(44px,9.4vw,122px);line-height:.96;letter-spacing:-.038em;
-  margin:24px 0 0;font-weight:700;white-space:nowrap;
+  font-size:clamp(44px,9.4vw,122px);line-height:.96;letter-spacing:-.04em;
+  margin:24px 0 0;font-weight:800;white-space:nowrap;
 }
-h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
+h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
 .hero__hair{width:min(420px,58vw);height:1px;margin:22px auto 0;
   background:linear-gradient(90deg,transparent,rgba(111,211,255,.55),transparent)}
 .hero__sub{margin:20px auto 0;max-width:27ch;font-family:var(--sans);font-weight:400;
@@ -220,10 +226,11 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
 .lb{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:clamp(16px,4vw,52px);
   background:rgba(3,6,14,.92);backdrop-filter:blur(16px)}
 .lb.on{display:grid}
-.lb__box{position:relative;max-width:min(1100px,96vw);max-height:88vh;display:grid;gap:14px;justify-items:center}
-.lb__media{max-width:100%;max-height:78vh;border-radius:16px;overflow:hidden;
+.lb__box{position:relative;max-width:min(720px,92vw);display:grid;gap:14px;justify-items:center}
+.lb__media{border-radius:16px;overflow:hidden;line-height:0;
   border:1px solid rgba(111,211,255,.3);box-shadow:0 40px 100px -40px rgba(46,123,255,.6);background:#050B18}
-.lb__media video,.lb__media img{display:block;max-width:100%;max-height:78vh;width:auto;height:auto}
+.lb__media video{display:block;width:auto;height:auto;max-width:min(320px,80vw);max-height:min(58vh,560px)}
+.lb__media img{display:block;width:auto;height:auto;max-width:min(560px,88vw);max-height:min(52vh,520px)}
 .lb__cap{font-size:13px;color:var(--ink-2);text-align:center}
 .lb__cap b{color:var(--ink);font-weight:500;font-size:15px;display:block;margin-bottom:3px;font-family:var(--display)}
 .lb__tag{display:inline-block;margin-left:8px;padding:2px 10px;border-radius:999px;font-size:11px;
@@ -343,8 +350,8 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
   border:1px solid rgba(111,211,255,.5);backdrop-filter:blur(6px);opacity:.8;transition:opacity .3s,transform .3s}
 .pfc:hover .pfc__play{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
 .pfc__play svg{width:14px;height:14px;color:var(--glow);margin-left:2px}
-.pf__more{display:flex;justify-content:center;margin-top:30px}
 .pfc[hidden]{display:none}
+.pf__grid[hidden]{display:none}
 
 /* ---------- 客戶見證 ---------- */
 .tm{position:relative;overflow:hidden;
@@ -366,7 +373,6 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
   background:linear-gradient(140deg,var(--glow),var(--beam))}
 .tmc__nm{display:block;font-size:13.5px;color:var(--ink);font-weight:500;line-height:1.4}
 .tmc__co{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
-.tm__note{text-align:center;margin-top:26px;font-size:12.5px;color:var(--muted)}
 
 /* ---------- 免費課程 ---------- */
 .gift{position:relative;border-radius:26px;overflow:hidden;isolation:isolate;
@@ -433,10 +439,6 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
 .mod__ic{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;
   color:var(--glow);border:1px solid rgba(111,211,255,.24);background:rgba(46,123,255,.1)}
 .mod__ic svg{width:23px;height:23px}
-.mod__badge{margin-left:auto;font-size:10.5px;letter-spacing:.09em;padding:4px 10px;border-radius:999px;
-  border:1px solid rgba(126,168,236,.26);color:var(--ink-2);white-space:nowrap}
-.mod__badge--live{border-color:rgba(111,211,255,.4);color:var(--glow);background:rgba(46,123,255,.1)}
-.mod__badge--soon{border-color:rgba(245,196,81,.32);color:var(--gold)}
 .mod h3{margin-top:18px;font-size:19px}
 .mod p{margin:11px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.72;flex:1}
 .mod__foot{margin-top:20px;padding-top:16px;border-top:1px solid var(--hair-2);
@@ -727,8 +729,7 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
     </div>
     <div class="pf__grid pf__grid--v rv" id="pfVideos"></div>
     <div class="pf__grid pf__grid--i rv" id="pfImages" hidden></div>
-    <div class="pf__more"><button class="btn btn--ghost" id="pfMore" type="button">展開全部</button></div>
-    <p class="note">素材由 99agent 模組全自動生成，模擬真實用戶拍攝風格，成本約傳統製作的 1/20。</p>
+    <p class="note">以上為素材庫中的部分精選。素材由 99agent 模組全自動生成，模擬真實用戶拍攝風格，成本約傳統製作的 1/20。</p>
   </div>
 </section>
 
@@ -742,7 +743,6 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
     </div>
   </div>
   <div class="tm rv" id="tm"><div class="tm__row" id="tmRow"></div></div>
-  <div class="wrap"><p class="tm__note">以上為 99agent 導入企業之公開分享，成效因產業與預算而異。</p></div>
 </section>
 
 <!-- ============ 模組地圖 ============ -->
@@ -764,7 +764,7 @@ h1.hero__t .lt{font-weight:500;letter-spacing:-.02em}
     <div class="gift rv">
       <div class="gift__hd">
         <span class="gift__badge">✦ 加購同享 · AI 先行者計畫</span>
-        <h2 class="gold-t">買工具，順便把「會用」一起送你</h2>
+        <h2 class="gold-t">買工具，一起教你「會用」</h2>
         <p class="gift__sub">工具開通了，還是不知道怎麼串成能收費的流程？所以我們把整套實戰課直接送——不用另外報名，開通即開課。</p>
       </div>
       <div class="gift__body">
@@ -990,6 +990,7 @@ const VOICES = [
   (function cursor(){
     if(matchMedia('(pointer: coarse)').matches) return;
     const g = $('.cur'), d = $('.cur-dot'); if(!g||!d) return;
+    document.documentElement.classList.add('cur-hide');
     let tx=innerWidth/2, ty=innerHeight/2, gx=tx, gy=ty, dx=tx, dy=ty, raf=0;
     addEventListener('pointermove', e=>{
       tx=e.clientX; ty=e.clientY;
@@ -1030,7 +1031,7 @@ const VOICES = [
     host.innerHTML = cols.map((c,i)=>{
       const inner = c.map(tile).join('');
       const dir = i%2 ? 'dn' : 'up';
-      const dur = 66 + (i%5)*11;
+      const dur = 128 + (i%5)*17;
       return `<div class="wall__col wall__col--${dir}" style="--dur:${dur}s">${inner}${inner}</div>`;
     }).join('');
   })();
@@ -1090,9 +1091,9 @@ const VOICES = [
 
   /* ---- 5. 作品集 ---- */
   (function portfolio(){
-    const gv = $('#pfVideos'), gi = $('#pfImages'), tabs = $('#pfTabs'), more = $('#pfMore');
+    const gv = $('#pfVideos'), gi = $('#pfImages'), tabs = $('#pfTabs');
     if(!gv||!gi) return;
-    const SHOW = 12;
+    const SHOW = 12;                       // 每個分頁固定挑 12 件當代表作
     const card = (it,i,kind) => `<article class="pfc pfc--${kind}" data-list="${kind}" data-i="${i}"${i>=SHOW?' hidden':''}>
       <img src="${esc(it.poster)}" alt="${esc(it.label)}" loading="lazy" decoding="async">
       ${it.type==='video'?'<span class="pfc__play"><svg><use href="#i-play"/></svg></span>':''}
@@ -1100,26 +1101,16 @@ const VOICES = [
     </article>`;
     gv.innerHTML = VITEMS.map((it,i)=>card(it,i,'v')).join('');
     gi.innerHTML = IITEMS.map((it,i)=>card(it,i,'i')).join('');
-    let expanded = false;
-    const sync = ()=>{
-      const grid = gv.hidden ? gi : gv;
-      $$('.pfc', grid).forEach((c,i)=> c.hidden = !expanded && i>=SHOW);
-      const total = grid===gv ? VITEMS.length : IITEMS.length;
-      more.hidden = total<=SHOW;
-      more.textContent = expanded ? '收合' : `展開全部 ${total} 件`;
-    };
     tabs.addEventListener('click', e=>{
       const b = e.target.closest('.chip'); if(!b) return;
       $$('.chip',tabs).forEach(c=>c.classList.toggle('on', c===b));
       const v = b.dataset.pf==='v';
-      gv.hidden = !v; gi.hidden = v; expanded = false; sync();
+      gv.hidden = !v; gi.hidden = v;
     });
-    more.addEventListener('click', ()=>{ expanded = !expanded; sync(); });
     [gv,gi].forEach(g=>g.addEventListener('click', e=>{
       const c = e.target.closest('.pfc'); if(!c) return;
       lbOpen(c.dataset.list==='v' ? VITEMS : IITEMS, +c.dataset.i);
     }));
-    sync();
   })();
 
   /* ---- 6. 客戶見證跑馬 ---- */
@@ -1141,12 +1132,9 @@ const VOICES = [
     const count = k => k==='all' ? MODULES.length : MODULES.filter(m=>m.cat===k).length;
     bar.innerHTML = CATS.filter(c=>count(c.k)>0).map((c,i)=>
       `<button class="chip${i===0?' on':''}" data-k="${c.k}" type="button">${c.label}<small>${count(c.k)}</small></button>`).join('');
-    const badge = m => m.status==='live'
-      ? '<span class="mod__badge mod__badge--live">現貨 · 即開通</span>'
-      : '<span class="mod__badge mod__badge--soon">半年內交付</span>';
     grid.innerHTML = MODULES.map(m=>`
       <article class="mod rv" data-k="${m.cat}">
-        <div class="mod__top"><span class="mod__ic"><svg><use href="#${m.ic}"/></svg></span>${badge(m)}</div>
+        <div class="mod__top"><span class="mod__ic"><svg><use href="#${m.ic}"/></svg></span></div>
         <h3>${esc(m.n)}</h3><p>${esc(m.d)}</p>
         <div class="mod__foot">
           <span class="mod__price">加購點數 <b>${esc(m.price)}</b></span>
@@ -1156,8 +1144,7 @@ const VOICES = [
       </article>`).join('') +
       `<div class="mods__empty" id="modsEmpty" hidden>這個分類還沒有模組</div>` +
       (RESERVED>0 ? `<article class="mod rv" data-k="all" style="border-style:dashed;opacity:.72">
-        <div class="mod__top"><span class="mod__ic"><svg><use href="#i-script"/></svg></span>
-        <span class="mod__badge mod__badge--soon">尚未公布</span></div>
+        <div class="mod__top"><span class="mod__ic"><svg><use href="#i-script"/></svg></span></div>
         <h3>還有 ${RESERVED} 個模組在路上</h3>
         <p>行銷大師是 24 個模組的完整地圖。尚未公布名稱的模組會依市場需求排序，於半年內陸續交付，預購即自動納入。</p>
         <div class="mod__foot"><span class="mod__price">預購自動納入</span></div>
