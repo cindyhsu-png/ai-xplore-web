@@ -338,8 +338,9 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
 .pfrow__hd b{color:var(--glow);font-weight:600;letter-spacing:.06em}
 .pfrow__hd::after{content:"";flex:1;height:1px;background:var(--hair)}
 .pfrow__track{display:flex;gap:clamp(10px,1.2vw,16px);width:max-content;will-change:transform}
-.pfrow--l .pfrow__track{animation:pfL 96s linear infinite}
-.pfrow--r .pfrow__track{animation:pfR 124s linear infinite}
+/* 兩行速度都壓到 ~15px/s，圖片行較長所以秒數更大，實際視覺速度才會一致 */
+.pfrow--l .pfrow__track{animation:pfL 300s linear infinite}
+.pfrow--r .pfrow__track{animation:pfR 760s linear infinite}
 .pfrow:hover .pfrow__track{animation-play-state:paused}
 @keyframes pfL{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @keyframes pfR{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
@@ -526,8 +527,8 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
       <a href="#why">為什麼</a>
       <a href="#pipeline">產線</a>
       <a href="#works">真實案例</a>
-      <a href="#voices">客戶見證</a>
       <a href="#modules">模組</a>
+      <a href="#voices">客戶見證</a>
       <a href="#gift">贈課</a>
       <a href="#plans">方案</a>
     </nav>
@@ -736,17 +737,6 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
   </div>
 </section>
 
-<!-- ============ 客戶見證 ============ -->
-<section class="sect" id="voices">
-  <div class="wrap">
-    <div class="head rv">
-      <p class="eyebrow c">CLIENT VOICES</p>
-      <h2 class="chrome">企業主怎麼說<br>讓成績說話</h2>
-    </div>
-  </div>
-  <div class="tm rv" id="tm"><div class="tm__row" id="tmRow"></div></div>
-</section>
-
 <!-- ============ 模組地圖 ============ -->
 <section class="sect" id="modules">
   <div class="wrap">
@@ -758,6 +748,17 @@ h1.hero__t .lt{font-weight:800;letter-spacing:-.03em}
     <div class="filters rv" id="filters"></div>
     <div class="mods" id="mods"></div>
   </div>
+</section>
+
+<!-- ============ 客戶見證 ============ -->
+<section class="sect" id="voices">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow c">CLIENT VOICES</p>
+      <h2 class="chrome">企業主怎麼說<br>讓成績說話</h2>
+    </div>
+  </div>
+  <div class="tm rv" id="tm"><div class="tm__row" id="tmRow"></div></div>
 </section>
 
 <!-- ============ 免費贈課 ============ -->
