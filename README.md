@@ -11,10 +11,10 @@ AI 行銷模組銷售頁。純靜態單檔（`index.html`），走 GitHub Pages�
 | 2-A · 痛點鉤子 | 三個陷阱：數位垃圾／幻想一鍵變現／只靠單點工具 |
 | 2-B · 產線 × 數據 | 四步產線每段掛量化指標，右側是成效儀表板（KPI／ROAS 趨勢 SVG／活躍活動表） |
 | 2-C · 真實案例 | 26 支 AI UGC 影片與 50 張 AI 生成廣告圖各排成一行輪播，反向捲動、hover 暫停、點擊放大預覽 |
-| 3 · 模組地圖 | 全部模組卡片 + 分類篩選 |
+| 3 · 模組選購 | 模組卡片 + 分類篩選，點「加入選購」卡片反白並累計到下方結算列 |
 | 4 · 客戶見證 | 6 則企業主見證橫向跑馬，hover 暫停 |
 | 5 · 免費贈課 | AI 自動化工作流實戰班（原價 NT$5,800 → NT$0），8 堂課大綱 |
-| — | 方案定價、結尾 CTA、footer |
+| — | 結尾 CTA、footer |
 
 全站游標為光點暈染特效（觸控裝置自動停用）。
 
@@ -34,12 +34,13 @@ https://storage.googleapis.com/99agent-public/portfolio/{images,videos}/<檔名>
 每筆欄位：
 
 ```js
-{n:"模組名稱", cat:"image", ic:"i-image", status:"live", price:"3 點/張", d:"說明文字"}
+{n:"模組名稱", cat:"image", ic:"i-image", status:"live", price:3000, d:"說明文字"}
 ```
 
 - `cat`：`content` / `image` / `video` / `audio`
 - `status`：`live` 現貨即開通、`soon` 半年內交付
 - `ic`：`i-news` `i-script` `i-image` `i-video` `i-audio` `i-person`
+- `price`：單價數字，會自動格式化成 `NT$ 3,000` 並計入選購總額
 
 `RESERVED` 會自動算出「24 − 已列出模組數」，顯示成「還有 N 個模組在路上」的卡片。
 
@@ -51,16 +52,19 @@ https://storage.googleapis.com/99agent-public/portfolio/{images,videos}/<檔名>
 |---|---|
 | `nav` | 導覽列右側 |
 | `hero-primary` | 首頁主 CTA |
-| `plan-starter` | 行銷工具人方案 |
-| `plan-master` | 行銷大師方案 |
+| `checkout` | 模組選購結算列（下單結帳按鈕放這裡）|
 | `final` | 結尾 CTA |
-| `module` | 每張模組卡片（`data-sku` 為模組名稱） |
 
 掛法：
 
 ```js
-AIXplore.mountCTA('hero-primary', myCartButtonElement);
-AIXplore.slots();   // 列出所有落點與 sku
+AIXplore.mountCTA('checkout', myCheckoutButtonElement);
+AIXplore.slots();        // 列出所有落點與 sku
+AIXplore.selection();    // { items:[{name,price,cat}], count, total }
+AIXplore.clearSelection();
+
+// 選擇變動時會派發事件，結帳元件可以即時同步
+document.addEventListener('aix:selection', e => console.log(e.detail));
 ```
 
 或直接在 HTML 裡把 `.cta-slot` 內的 `.cta-fallback` 換成自己的按鈕。
